@@ -4,7 +4,7 @@ import numpy as np
 import time
 import os
 
-actions = ['rabbit', 'butterfly', 'fox']
+actions = ['rabbit', 'butterfly', 'shark']
 seq_length = 30
 secs_for_action = 30
 
