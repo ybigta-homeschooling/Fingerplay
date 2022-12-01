@@ -6,7 +6,7 @@ import os
 
 actions = ['rabbit', 'butterfly', 'shark']
 seq_length = 30
-secs_for_action = 30
+secs_for_action = 60
 
 ## MediaPipe hands model
 mp_hands = mp.solutions.hands
@@ -53,6 +53,7 @@ while cap.isOpened():
                     v1 = joint[[0,1,2,3,0,5,6,7,0,9,10,11,0,13,14,15,0,17,18,19], :3] # Parent joint
                     v2 = joint[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20], :3] # Child joint
                     v = v2 - v1 # [20, 3]
+
                     # Normalize v
                     v = v / np.linalg.norm(v, axis=1)[:, np.newaxis]
 
