@@ -3,7 +3,7 @@ import mediapipe as mp
 import numpy as np
 from tensorflow.keras.models import load_model
 
-actions = ['rabbit', 'butterfly', 'shark']
+actions = ['rabbit', 'mountain', 'go', 'santa', 'snow', 'nose', 'butterfly', 'flower', 'bird', 'fat', 'thin', 'cute']
 seq_length = 30
 
 model = load_model('models/model.h5')
@@ -86,6 +86,7 @@ while cap.isOpened():
                 this_action = action
 
             cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
+            # print(this_action)
 
     # out.write(img0)
     # out2.write(img)
