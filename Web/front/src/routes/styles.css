@@ -1,0 +1,22 @@
+.title {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subtitle {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
