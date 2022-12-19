@@ -1,0 +1,20 @@
+.video > video {
+  position: absolute;
+  width: 60%;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.video > img {
+  position: absolute;
+  width: 85%;
+  top: 41%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}

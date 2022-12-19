@@ -16,9 +16,9 @@ function Home() {
   `;
   return (
     <Container>
-      <div className={"title"}>
+      <p className="title">
         <img src="/title.png" />
-      </div>
+      </p>
       <p className="subtitle">
         <Link to="/select">
           <img src="/subtitle.png" />

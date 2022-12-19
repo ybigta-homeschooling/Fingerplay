@@ -36,20 +36,3 @@
     transform: rotate(360deg);
   }
 }
-
-.title {
-  height: 700px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.subtitle {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
