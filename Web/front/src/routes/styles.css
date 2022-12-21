@@ -36,36 +36,49 @@
   top: 30%;
   left: 28%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
+
 .bear {
   position: absolute;
   top: 30%;
   left: 72%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .rabbit {
   position: absolute;
   top: 72%;
   left: 29%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .butterfly {
   position: absolute;
   top: 70%;
   left: 72%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.do > img {
+  position: absolute;
+  width: 40%;
+  top: 85%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+}
+
+.easy > img {
+  position: absolute;
+  width: 12%;
+  top: 87%;
+  left: 46%;
+  transform: translate(-50%, -50%);
+}
+
+.hard > img {
+  position: absolute;
+  width: 13%;
+  top: 87%;
+  left: 59%;
+  transform: translate(-50%, -50%);
 }
 /*-----------------------------------------------------animation css-------------------------------------------------------------*/
 

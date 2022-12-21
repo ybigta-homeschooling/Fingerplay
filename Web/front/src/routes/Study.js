@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 import Video from "../components/Video";
+import { Link } from "react-router-dom";
 
 function Study() {
   const { animalId } = useParams();
@@ -17,6 +18,19 @@ function Study() {
   return (
     <Container>
       <Video Id={animalId} />
+      <div className="do">
+        <img src="/do_yourself.png" />
+      </div>
+      <div>
+        <Link className="easy" to="./easy">
+          <img src="/easy.png" />
+        </Link>
+      </div>
+      <div>
+        <Link className="hard" to="./hard">
+          <img src="/hard.png" />
+        </Link>
+      </div>
     </Container>
   );
 }

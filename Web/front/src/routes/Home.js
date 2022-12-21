@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import "./styles.css";
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 function Home() {
   const Container = styled.div`

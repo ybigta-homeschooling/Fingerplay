@@ -1,6 +1,8 @@
 import Home from "./routes/Home";
 import Select from "./routes/Select";
 import Study from "./routes/Study";
+import Model from "./routes/Movie";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -10,6 +12,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/select" element={<Select />} />
         <Route path="study/:animalId" element={<Study />} />
+        <Route path="./model" element={<Modely />} />
+
       </Routes>
     </Router>
   );
