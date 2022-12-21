@@ -6,7 +6,7 @@ import time
 from PIL import ImageFont, ImageDraw, Image
 
 class action_answer() :
-    def __init__(self,model,actions,seq_length,correct_actions,correct_act_ko,cut_time_original):
+    def __init__(self,model,actions,seq_length,correct_actions,correct_act_ko,cut_time_original,stroke_fill):
         self.model = model  # model
         self.actions = actions # 총 action
         self.seq_length = seq_length # 인식되는 sequence 길이
@@ -16,6 +16,7 @@ class action_answer() :
         plus_list = [6] * len(cut_time_original) # 카메라 delay 시간
         self.cut_time = [a+b for a,b in zip(cut_time_original,plus_list)] # action 실행 구간
         self.test_time = self.cut_time[-1] # 총 영상 길이
+        self.stroke_fill = stroke_fill
 
     # 유저의 동작을 list 형태로 보냄
     def answer(self) :
@@ -48,16 +49,16 @@ class action_answer() :
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             result = hands.process(img)
             img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-            fontpath = "fonts/gulim.ttc"
-            font = ImageFont.truetype(fontpath, 35)
+            fontpath = "BMJUA_ttf.ttf"
+            font = ImageFont.truetype(fontpath, 50)
             img_pil = Image.fromarray(img)
             draw = ImageDraw.Draw(img_pil)
             # 특정 시간에 행동 명령어 출력
             for i in range(len(self.correct_actions)):
-                if (time.time() < cut_time_list[i+1]) & (time.time() >= cut_time_list[i])  :
+                if (time.time() < min(cut_time_list[i+1],cut_time_list[i]+5)) & (time.time() >= cut_time_list[i])  :
                     # do_action = 'Now ' + self.correct_actions[i] + ' motion!' # 영어 버전
                     do_action = '이제, ' + self.correct_act_ko[i] + ' 동작 해봐요!' # 한국어 버전
-                    draw.text((60, 30), f'{do_action.upper()}', font=font, fill=(255, 255, 255, 0))
+                    draw.text((60, 30), f'{do_action.upper()}', font=font, fill=(255,255,255),stroke_width=3,stroke_fill=self.stroke_fill)
                     img = np.array(img_pil)
                     # cv2.putText(img, f'{do_action.upper()}', org=(50,50), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
             # 손의 landmark 정보를 통해 사용자의 행동 정보 list 추출
@@ -247,13 +248,18 @@ correct_act_ko_3 = ['토끼','간다','산']
 correct_act_ko_1 = ['반짝','코','산타']
 correct_act_ko_4 = ['나비','꽃','참새']
 correct_act_ko_2 = ['곰','뚱뚱해','날씬해','귀여워']
-
+# 시퀀스 길이
 seq_length = 30
 # 동요별 cut_time
-cut_time_3 = [0,4,10,20]
+cut_time_3 = [3,14,18,35]
 cut_time_1 = [0,4,10,20]
-cut_time_4 = [0,4,10,20]
+cut_time_4 = [4,23,31,38]
 cut_time_2 = [0,6,13,20,29] 
+# 동요별 글자 색깔
+stroke_fill_3 = (81,164,75)
+stroke_fill_1 = (85,82,246)
+stroke_fill_4 = (241,175,76)
+stroke_fill_2 = (69,91,125)
 
 # 모델
 model = load_model('models/model.h5')
@@ -267,9 +273,10 @@ def test_by_song(song_num,level='easy'):
     correct_actions = globals()['correct_actions_' + song_num]
     correct_act_ko = globals()['correct_act_ko_' + song_num]
     cut_time = globals()['cut_time_' + song_num]
+    stroke_fill = globals()['stroke_fill_' + song_num]
     
     # 노래에 따른 test 실행 
-    answer = action_answer(model,actions,seq_length,correct_actions,correct_act_ko,cut_time)
+    answer = action_answer(model,actions,seq_length,correct_actions,correct_act_ko,cut_time,stroke_fill)
     labels, cut_time_list = answer.answer()
     test = Score_test(actions, correct_actions, labels, cut_time_list)
     score, wrong_action = test.score(level=level)
