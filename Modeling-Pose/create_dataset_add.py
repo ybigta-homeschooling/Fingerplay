@@ -5,7 +5,7 @@ import time
 import os
 
 old_actions = ['rabbit', 'mountain', 'go', 'santa', 'snow', 'nose', 'butterfly', 'flower', 'bird']
-new_actions = ['fat', 'thin', 'cute']
+new_actions = ['fat', 'thin']
 actions = old_actions + new_actions
 new_idx = len(old_actions)
 

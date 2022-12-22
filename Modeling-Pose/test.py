@@ -2,6 +2,9 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from tensorflow.keras.models import load_model
+from PIL import ImageFont, ImageDraw, Image
+
+font_kor = ImageFont.truetype("fonts/gulim.ttc", 20)
 
 actions = ['rabbit', 'mountain', 'go', 'santa', 'snow', 'nose', 'butterfly', 'flower', 'bird', 'fat', 'thin', 'cute']
 seq_length = 30
@@ -85,7 +88,13 @@ while cap.isOpened():
             if action_seq[-1] == action_seq[-2] == action_seq[-3]:
                 this_action = action
 
-            cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
+
+            cv2.putText(img, f'토끼',
+                        org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)),
+                        fontFace=font_kor, fontScale=1, color=(255, 255, 255), thickness=2)
+            # cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
+
+
             # print(this_action)
 
     # out.write(img0)
