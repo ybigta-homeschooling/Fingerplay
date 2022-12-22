@@ -12,6 +12,7 @@ class action_answer() :
         self.seq_length = seq_length # 인식되는 sequence 길이
         self.correct_actions = correct_actions # 정답 action
         self.correct_act_ko = correct_act_ko # 정답 action 한국어 버전
+        self.fontpath = "BMJUA_ttf.ttf"
 
         self.cut_time_list = cut_time_list
         self.test_time = self.cut_time_list[-1] # 총 영상 길이
@@ -36,18 +37,19 @@ class action_answer() :
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         result = self.hands.process(img)
         img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        fontpath = "BMJUA_ttf.ttf"
-        font = ImageFont.truetype(fontpath, 50)
+        font = ImageFont.truetype(self.fontpath, 50)
         img_pil = Image.fromarray(img)
         draw = ImageDraw.Draw(img_pil)
         # 특정 시간에 행동 명령어 출력
-        for i in range(len(self.correct_actions)):
+        for i in range(len(self.correct_actions)):   
             if (time.time() < min(self.cut_time_list[i+1],self.cut_time_list[i]+5)) & (time.time() >= self.cut_time_list[i])  :
-                # do_action = 'Now ' + self.correct_actions[i] + ' motion!' # 영어 버전
                 do_action = '이제, ' + self.correct_act_ko[i] + ' 동작 해봐요!' # 한국어 버전
                 draw.text((60, 30), f'{do_action.upper()}', font=font, fill=(255,255,255),stroke_width=3,stroke_fill=self.stroke_fill)
                 img = np.array(img_pil)
-                # cv2.putText(img, f'{do_action.upper()}', org=(50,50), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
+        if time.time()>(self.cut_time_list[i+1]-2) :
+                do_action = '이제 끝났어요! 안녕~~' # 한국어 버전
+                draw.text((60, 30), f'{do_action.upper()}', font=font, fill=(255,255,255),stroke_width=3,stroke_fill=self.stroke_fill)
+                img = np.array(img_pil)
         # 손의 landmark 정보를 통해 사용자의 행동 정보 list 추출
         if result.multi_hand_landmarks is not None:
             for res in result.multi_hand_landmarks:
@@ -98,8 +100,14 @@ class action_answer() :
                 if self.action_seq[-1] == self.action_seq[-2] == self.action_seq[-3]: # 연속된 3개의 action_seq가 들어와야 알맞는 동작으로 인식
                     this_action = action
 
-                cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
                 if this_action in self.correct_actions: # 출련된 action이 동요에 알맞는 action 인지 확인
+                    idx = self.correct_actions.index(this_action)
+                    font = ImageFont.truetype(self.fontpath, 35)
+                    img_pil = Image.fromarray(img)
+                    draw = ImageDraw.Draw(img_pil)
+                    draw.text((int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), f'{self.correct_act_ko[idx].upper()}', font=font, fill=(255,255,255))
+                    img = np.array(img_pil)
+                    # cv2.putText(img, f'{this_action.upper()}', org=(int(res.landmark[0].x * img.shape[1]), int(res.landmark[0].y * img.shape[0] + 20)), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
                     c_time = time.time() 
                     # 동작 구분 시간을 구함으로써 중복 제거 방지
                     cut_off = [i for i in range(len(self.cut_time_list)-1) if (c_time>=self.cut_time_list[i])&(c_time<self.cut_time_list[i+1])]
