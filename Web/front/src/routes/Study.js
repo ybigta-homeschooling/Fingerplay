@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import "./styles.css";
 import Video from "../components/Video";
-import Cam from "./Cam.js";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import "./styles.css";
 
 function Study() {
   const { animalId } = useParams();
+  const imageData = {
+    1: ["/videoimage/rudolph1_2.png", "/videoimage/rudolph1_1.png"],
+    2: ["/videoimage/bear1.png", "/videoimage/bear1.png"],
+    3: ["/videoimage/rabbit1_2.png", "/videoimage/rabbit1_1.png"],
+    4: ["/videoimage/butterfly1_2.png", "/videoimage/butterfly1_1.png"],
+  };
   const Container = styled.div`
     position: absolute;
     top: 0;
@@ -19,6 +23,9 @@ function Study() {
   return (
     <Container>
       <Video Id={animalId} />
+      <p className="back">
+        <img src="/back.png" />
+      </p>
       <div className="do">
         <img src="/do_yourself.png" />
       </div>
@@ -32,6 +39,12 @@ function Study() {
           <img src="/hard.png" />
         </Link>
       </div>
+      <p className="videoImage1">
+        <img src={imageData[animalId][0]} />
+      </p>
+      <p className="videoImage2">
+        <img src={imageData[animalId][1]} />
+      </p>
     </Container>
   );
 }
