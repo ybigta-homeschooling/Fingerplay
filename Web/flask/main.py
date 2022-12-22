@@ -56,9 +56,9 @@ def gen(song_num,level='easy'):
     print(score)
     print(wrong_action)       
 
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(str(3)),
+@app.route('/video_feed/<int:animalId>/<level>')
+def video_feed(animalId, level):
+    return Response(gen(str(level),animalId),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
