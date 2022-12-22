@@ -6,12 +6,6 @@ function Video({ Id }) {
     3: "rabbit.mov",
     4: "butterfly.mov",
   };
-  //   const imageData = {
-  //     1: "rudolph.mov",
-  //     2: "bear.mov",
-  //     3: "rabbit.mov",
-  //     4: "butterfly.mov",
-  //   };
   return (
     <div className="video">
       <img src="/video_background.png" />

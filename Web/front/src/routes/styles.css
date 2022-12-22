@@ -96,7 +96,7 @@
   position: absolute;
   width: 40%;
   top: 85%;
-  left: 52%;
+  left: 49%;
   transform: translate(-50%, -50%);
 }
 
@@ -104,7 +104,7 @@
   position: absolute;
   width: 12%;
   top: 87%;
-  left: 46%;
+  left: 42%;
   transform: translate(-50%, -50%);
 }
 
@@ -112,8 +112,41 @@
   position: absolute;
   width: 13%;
   top: 87%;
-  left: 59%;
+  left: 57%;
   transform: translate(-50%, -50%);
+}
+
+.videoImage1 > img {
+  position: absolute;
+  width: 15%;
+  top: 74%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+}
+
+.videoImage2 > img {
+  position: absolute;
+  width: 15%;
+  top: 74%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+}
+
+.back > img {
+  position: absolute;
+  width: 15%;
+  top: 8%;
+  left: 17%;
+  transform: translate(-50%, -50%);
+}
+
+.refresh > img {
+  position: absolute;
+  width: 15%;
+  top: 8%;
+  left: 84%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 /*-----------------------------------------------------animation css-------------------------------------------------------------*/
 
