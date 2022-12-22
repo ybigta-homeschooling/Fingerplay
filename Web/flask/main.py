@@ -24,10 +24,10 @@ def index():
 def gen(song_num,level='easy'):
     global score
     global wrong_action
-    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute', 'smile'], 
+    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute', 'smile']
     seq_length = 30
 
-    model = load_model('model_final')
+    model = load_model('model_final.h5')
 
     correct_actions, correct_act_ko, cut_time, stroke_fill = song_by_song(song_num,level)
     
@@ -53,6 +53,9 @@ def gen(song_num,level='easy'):
         ret, frame = cv2.imencode('.jpg', img)
         # 설정한 종료 시간이 되면 while 문 탈출
         if time.time() > max_time :
+            if cap.isOpened() :
+                cap.release()
+                cv2.destroyAllWindows()   
             break
         if cv2.waitKey(1) == ord('q'):
             break
@@ -76,4 +79,4 @@ def send_result(animalId, level):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002, threaded=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=5003, threaded=True, use_reloader=False)
