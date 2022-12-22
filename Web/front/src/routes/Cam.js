@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 function Cam() {
+  const { animalId, level } = useParams();
   const AsyncImage = (props) => {
     const [loadedSrc, setLoadedSrc] = React.useState(null);
     React.useEffect(() => {
@@ -27,4 +30,5 @@ function Cam() {
     </div>
   );
 }
+
 export default Cam;

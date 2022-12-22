@@ -30,12 +30,12 @@ function Study() {
         <img src="/do_yourself.png" />
       </div>
       <div>
-        <Link className="easy" to="./easy">
+        <Link className="easy" to={"/cam/"+animalId+"/easy"}>
           <img src="/easy.png" />
         </Link>
       </div>
       <div>
-        <Link className="hard" to="/cam">
+        <Link className="hard" to={"/cam/"+animalId+"/hard"}>
           <img src="/hard.png" />
         </Link>
       </div>
