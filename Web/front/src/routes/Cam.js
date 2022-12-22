@@ -26,7 +26,7 @@ function Cam() {
   };
   return (
     <div>
-      <AsyncImage src="http://localhost:5002/video_feed" alt="Video" />
+      <AsyncImage src={"http://localhost:5002/video_feed/"+animalId+"/"+level} alt="Video" />
     </div>
   );
 }
