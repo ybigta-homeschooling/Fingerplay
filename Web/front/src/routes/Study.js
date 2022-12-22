@@ -11,6 +11,9 @@ function Study() {
     3: ["/videoimage/rabbit1_2.png", "/videoimage/rabbit1_1.png"],
     4: ["/videoimage/butterfly1_2.png", "/videoimage/butterfly1_1.png"],
   };
+  const refreshPage = () => {
+    window.location.reload();
+  };
   const Container = styled.div`
     position: absolute;
     top: 0;
@@ -23,19 +26,24 @@ function Study() {
   return (
     <Container>
       <Video Id={animalId} />
-      <p className="back">
-        <img src="/back.png" />
+      <p>
+        <Link className="back" to="/select">
+          <img src="/back.png" />
+        </Link>
       </p>
+      <a className="refresh" onClick={refreshPage}>
+        <img src="/refresh.png" />
+      </a>
       <div className="do">
         <img src="/do_yourself.png" />
       </div>
       <div>
-        <Link className="easy" to={"/cam/"+animalId+"/easy"}>
+        <Link className="easy" to={"/cam/" + animalId + "/easy"}>
           <img src="/easy.png" />
         </Link>
       </div>
       <div>
-        <Link className="hard" to={"/cam/"+animalId+"/hard"}>
+        <Link className="hard" to={"/cam/" + animalId + "/hard"}>
           <img src="/hard.png" />
         </Link>
       </div>

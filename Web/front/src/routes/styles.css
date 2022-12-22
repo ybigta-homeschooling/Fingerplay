@@ -134,10 +134,19 @@
 
 .back > img {
   position: absolute;
-  width: 20%;
-  top: 12%;
-  left: 9%;
+  width: 15%;
+  top: 8%;
+  left: 17%;
   transform: translate(-50%, -50%);
+}
+
+.refresh > img {
+  position: absolute;
+  width: 15%;
+  top: 8%;
+  left: 84%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
 }
 /*-----------------------------------------------------animation css-------------------------------------------------------------*/
 
