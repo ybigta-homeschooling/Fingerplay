@@ -15,26 +15,26 @@ function Select() {
   `;
   return (
     <Container>
-      <span>
+      <div className="rudolph">
         <Link to="/study/1">
-          <img src="/rudolph.png" className="rudolph" />
+          <img src="/rudolph.png" />
         </Link>
-      </span>
-      <span>
+      </div>
+      <div className="bear">
         <Link to="/study/2">
-          <img src="/bear.png" className="bear" />
+          <img src="/bear.png" />
         </Link>
-      </span>
-      <span>
+      </div>
+      <div className="rabbit">
         <Link to="/study/3">
-          <img src="/rabbit.png" className="rabbit" />
+          <img src="/rabbit.png" />
         </Link>
-      </span>
-      <span>
+      </div>
+      <div className="butterfly">
         <Link to="/study/4">
-          <img src="/butterfly.png" className="butterfly" />
+          <img src="/butterfly.png" />
         </Link>
-      </span>
+      </div>
     </Container>
   );
 }
