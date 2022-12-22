@@ -24,10 +24,10 @@ def index():
 def gen(song_num,level='easy'):
     global score
     global wrong_action
-    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute']
+    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute', 'smile'], 
     seq_length = 30
 
-    model = load_model('model.h5')
+    model = load_model('model_final')
 
     correct_actions, correct_act_ko, cut_time, stroke_fill = song_by_song(song_num,level)
     
@@ -41,6 +41,9 @@ def gen(song_num,level='easy'):
     answer = action_answer(model,actions,seq_length,correct_actions,correct_act_ko,cut_time_list,stroke_fill)
     # 카메라 켜기
     cap = cv2.VideoCapture(0)
+    # 크기 변환
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
     while cap.isOpened():
         img, labels = answer.answer(cap)
@@ -56,7 +59,7 @@ def gen(song_num,level='easy'):
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n\r\n')
     label = labels
-    test = scoring_answer(actions, correct_actions, label, cut_time_list,level)
+    test = scoring_answer(actions, correct_actions, label, cut_time_list,level, correct_act_ko)
     score, wrong_action = test.score()
     
 

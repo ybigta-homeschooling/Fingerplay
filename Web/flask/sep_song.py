@@ -1,19 +1,19 @@
 # 1 : 루돌프 , 2 : 곰 세마리, 3 : 산토끼, 4 : 나비야
 # 동요의 action
 correct_actions_3= ['rabbit','go', 'mountain']
-correct_actions_1 = ['twinkle', 'nose','santa']
+correct_actions_1 = ['nose','twinkle','smile','santa']
 correct_actions_4 = ['butterfly','flower', 'bird']
 correct_actions_2 = ['bear','fat', 'thin','cute']
 # action 한국어 버전
 correct_act_ko_3 = ['토끼','간다','산']
-correct_act_ko_1 = ['반짝','코','산타']
+correct_act_ko_1 = ['코','반짝','웃다','산타']
 correct_act_ko_4 = ['나비','꽃','참새']
 correct_act_ko_2 = ['곰','뚱뚱해','날씬해','귀여워']
 # 동요별 cut_time
 cut_time_3 = [3,14,18,35]
-cut_time_1 = [0,8,15,25]
-cut_time_4 = [4,23,31,38]
-cut_time_2 = [0,6,13,20,29] 
+cut_time_1 = [2,5,17,29,37]
+cut_time_4 = [3,20,26,35]
+cut_time_2 = [1,11,15,20,31] 
 # 동요별 글자 색깔
 stroke_fill_3 = (81,164,75)
 stroke_fill_1 = (85,82,246)

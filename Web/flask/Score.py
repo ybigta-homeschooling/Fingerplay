@@ -2,11 +2,12 @@ import numpy as np
 
 
 class scoring_answer():
-    def __init__(self, actions, correct_actions, labels, cut_time_list,level) :
+    def __init__(self, actions, correct_actions, labels, cut_time_list,level,correct_act_ko) :
         self.correct_actions = correct_actions # 정답 action
         self.labels = labels # 사용자 동작 결과
         self.cut_time_list = cut_time_list # 동작 구분 시간
         self.level = level
+        self.correct_act_ko = correct_act_ko
     
     def score(self) : # 레벨에 따른 다른 score 산출 방식
         if len(self.labels) == 0 :
@@ -21,7 +22,6 @@ class scoring_answer():
             for n in range(num_correct-len(self.labels)) :
                 self.labels.append([0,0,0])
         labels = np.array(self.labels,dtype=object)
-        print(labels)
         labels = labels[:,:-1] # 동작 구분 시간 결과값 떼어내기
 
         if self.level == 'easy' :
@@ -35,7 +35,7 @@ class scoring_answer():
                     else : 
                         # 제일 마지막 동작이 동작 구분시간 안에 없으면 틀림(out of index 방지)
                         if i == len(labels) :
-                            wrong_action.append(self.correct_actions[i]) 
+                            wrong_action.append(self.correct_act_ko[i]) 
                         else :
                             # 중간에 오답이 있어 올바른 행동의 결과가 정답과 다른 위치에서 있는 것을 확인하고 맞다고 처리
                             if self.correct_actions[i] in labels[:,0] :
@@ -47,10 +47,10 @@ class scoring_answer():
                                         k += 1
                                 # 사용자 동작 결과에서 올바른 동작의 동작 구분시간의 범위에 없는 경우
                                 if k == 0 :
-                                    wrong_action.append(self.correct_actions[i])
+                                    wrong_action.append(self.correct_act_ko[i])
                             # 오답인 행동과 같은 행동이 뒷 index에 없는 경우
                             else :
-                                wrong_action.append(self.correct_actions[i])  
+                                wrong_action.append(self.correct_act_ko[i])  
                 else : 
                     # 정답과 다른 위치에 사용자 동작 결과가 있는지 확인
                     if self.correct_actions[i] in labels[:,0] :
@@ -61,9 +61,9 @@ class scoring_answer():
                                 score += 1
                                 k += 1
                         if k == 0 :
-                            wrong_action.append(self.correct_actions[i])
+                            wrong_action.append(self.correct_act_ko[i])
                     else :
-                        wrong_action.append(self.correct_actions[i])
+                        wrong_action.append(self.correct_act_ko[i])
         elif self.level == 'hard' :
             # 'easy' mode와 실행 원리는 같음 (동작 구분 시작의 구간이 더욱 짧아진 것만 다름)
             for i in range(num_correct) :
@@ -72,7 +72,7 @@ class scoring_answer():
                         score += 1
                     else : 
                         if i == len(labels) :
-                            wrong_action.append(self.correct_actions[i]) 
+                            wrong_action.append(self.correct_act_ko[i]) 
                         else :
                             if self.correct_actions[i] in labels[:,0] :
                                 idx = np.where(labels == self.correct_actions[i])
@@ -82,9 +82,9 @@ class scoring_answer():
                                         score += 1
                                         k += 1
                                 if k == 0 :
-                                    wrong_action.append(self.correct_actions[i])
+                                    wrong_action.append(self.correct_act_ko[i])
                             else :
-                                wrong_action.append(self.correct_actions[i])  
+                                wrong_action.append(self.correct_act_ko[i])  
                 else : 
                     if self.correct_actions[i] in labels[:,0] :
                         idx = np.where(labels == self.correct_actions[i])
@@ -94,10 +94,10 @@ class scoring_answer():
                                 score += 1
                                 k += 1
                         if k == 0 :
-                            wrong_action.append(self.correct_actions[i])
+                            wrong_action.append(self.correct_act_ko[i])
                     else :
-                        wrong_action.append(self.correct_actions[i])
-            else : 
-                print('Input correct level')
+                        wrong_action.append(self.correct_act_ko[i])
+            # else : 
+            #     continue
         score /= num_correct
         return score, wrong_action
