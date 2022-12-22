@@ -5,18 +5,25 @@ from tensorflow.keras.models import load_model
 import cv2
 import mediapipe as mp
 import numpy as np
+from flask_cors import CORS
 
 from user_answer import action_answer
 from sep_song import song_by_song
 from Score import scoring_answer
 
+score=-1
+wrong_action=[]
 
 app = Flask(__name__)
+CORS(app)
+
 @app.route('/')
 def index():
     return render_template('index.js')
 
 def gen(song_num,level='easy'):
+    global score
+    global wrong_action
     actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute']
     seq_length = 30
 
@@ -43,23 +50,27 @@ def gen(song_num,level='easy'):
         ret, frame = cv2.imencode('.jpg', img)
         # 설정한 종료 시간이 되면 while 문 탈출
         if time.time() > max_time :
-                    break
+            break
         if cv2.waitKey(1) == ord('q'):
             break
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n\r\n')
-
     label = labels
     test = scoring_answer(actions, correct_actions, label, cut_time_list,level)
     score, wrong_action = test.score()
-
-    print(score)
-    print(wrong_action)
+    
 
 @app.route('/video_feed/<int:animalId>/<level>')
 def video_feed(animalId, level):
     return Response(gen(str(animalId),level),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed/<int:animalId>/<level>/fin')
+def send_result(animalId, level):
+    global score
+    global wrong_action
+    return {"score":score, "wa": wrong_action}
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002, threaded=True, use_reloader=False)
