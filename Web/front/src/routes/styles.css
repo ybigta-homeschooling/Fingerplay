@@ -22,7 +22,7 @@
 }
 
 .subtitle {
-  position: absolute;
+  position: fixed;
   top: 58%;
   left: 50%;
   transform: translate(-50%, -50%);

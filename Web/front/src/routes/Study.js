@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import "./styles.css";
 import Video from "../components/Video";
+import Cam from "./Cam.js";
 import { Link } from "react-router-dom";
 
 function Study() {
@@ -27,7 +28,7 @@ function Study() {
         </Link>
       </div>
       <div>
-        <Link className="hard" to="./hard">
+        <Link className="hard" to="/cam">
           <img src="/hard.png" />
         </Link>
       </div>
