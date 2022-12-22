@@ -17,7 +17,7 @@ def index():
     return render_template('index.js')
 
 def gen(song_num,level='easy'):
-    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'fat', 'thin', 'cute']
+    actions = ['rabbit', 'mountain', 'go', 'santa', 'twinkle', 'nose', 'butterfly', 'flower', 'bird', 'bear','fat', 'thin', 'cute']
     seq_length = 30
 
     model = load_model('model.h5')
