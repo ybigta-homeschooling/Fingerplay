@@ -15,7 +15,7 @@ function Home() {
   `;
   return (
     <Container>
-      <p className="title">
+      <p className="title wobble animated">
         <img src="/title.png" />
       </p>
       <p className="subtitle">
