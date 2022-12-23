@@ -40,30 +40,7 @@ function Cam() {
     //   };
     setTimeout(getResult, 40000);
   }, []);
-  function useInterval(callback, delay) {
-    const savedCallback = useRef();
-    useEffect(() => {
-      savedCallback.current = callback;
-    }, [callback]);
 
-    useEffect(() => {
-      function tick() {
-        savedCallback.current();
-      }
-      if (delay !== null) {
-        let id = setInterval(tick, delay);
-        return () => clearInterval(id);
-      }
-    }, [delay]);
-  }
-
-  function Test() {
-    const [count, setCount] = useState(0);
-
-    useInterval(() => {
-      setCount((count) => count + 1);
-    }, 1000);
-  }
   const AsyncImage = (props) => {
     const [loadedSrc, setLoadedSrc] = React.useState(null);
     React.useEffect(() => {
@@ -111,7 +88,6 @@ function Cam() {
             </p>
           </div>
         )}
-        {/* <script>APIService(animalId, level);</script> */}
       </div>
       <p>
         <Link className="goback" to="/select">

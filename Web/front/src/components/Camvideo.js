@@ -10,7 +10,10 @@ function Camvideo({ Id }) {
   return (
     <div className="camVideo">
       <video controls="controls">
-        <source src={require(`../video/${videoData[Id]}`)} type="video/mp4" />
+        <source
+          src={require(`../video/${videoData[Id]}#t=5,10`)}
+          type="video/mp4"
+        />
       </video>
     </div>
   );
