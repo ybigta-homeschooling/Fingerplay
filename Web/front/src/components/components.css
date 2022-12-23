@@ -1,7 +1,7 @@
 .video > video {
   position: absolute;
-  width: 60%;
-  top: 36%;
+  width: 44%;
+  top: 37%;
   left: 50%;
   transform: translate(-50%, -50%);
   justify-content: center;
@@ -14,4 +14,13 @@
   top: 41%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.camVideo > video {
+  position: absolute;
+  width: 30%;
+  top: 50%;
+  left: 26%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }

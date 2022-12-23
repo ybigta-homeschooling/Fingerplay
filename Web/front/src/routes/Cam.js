@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
+import APIService from "../components/APIService";
+import CamVideo from "../components/Camvideo";
 
 function Cam() {
   const { animalId, level } = useParams();
-  const [loading, setLoading] = useState(null);
   const [score, setScore] = useState(-1);
   const [wrongList, setWrongList] = useState([]);
   const [finish, setFinish] = useState(false);
@@ -17,6 +18,9 @@ function Cam() {
     background: url("/background_3.png");
     background-size: cover;
   `;
+  const refreshPage = () => {
+    window.location.reload();
+  };
   const getResult = () => {
     fetch(`http://localhost:5003/video_feed/${animalId}/${level}/fin`)
       .then((res) => {
@@ -29,14 +33,37 @@ function Cam() {
         setWrongList(data["wa"]);
       });
   };
-
   useEffect(() => {
-    const timer = setInterval(getResult, 3000);
-    return () => {
-      clearInterval(timer);
-    };
+    //   const timer = setInterval(getResult, 10000);
+    //   return () => {
+    //     clearInterval(timer);
+    //   };
+    setTimeout(getResult, 40000);
   }, []);
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
 
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
+
+  function Test() {
+    const [count, setCount] = useState(0);
+
+    useInterval(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  }
   const AsyncImage = (props) => {
     const [loadedSrc, setLoadedSrc] = React.useState(null);
     React.useEffect(() => {
@@ -60,26 +87,42 @@ function Cam() {
   };
   return (
     <Container>
-      {/* <p className="red">
+      <CamVideo Id={animalId} />
+      <p className="red">
         <img src="/red.png" />
       </p>
       <p className="yellow">
         <img src="/yellow.png" />
-      </p> */}
+      </p>
       <div>
-        <AsyncImage
-          src={"http://localhost:5003/video_feed/" + animalId + "/" + level}
-          alt="Video"
-        />
-        <div>
-          {score !== -1 && (
-            <div>
-              {score}
-              {wrongList}
-            </div>
-          )}
-        </div>
+        {score === -1 ? (
+          <AsyncImage
+            className="cam"
+            src={"http://localhost:5003/video_feed/" + animalId + "/" + level}
+            alt="Video"
+          />
+        ) : (
+          <div>
+            <p className="font1">
+              <h1>{score}</h1>
+            </p>
+            <p className="font2">
+              <h2>{wrongList}</h2>
+            </p>
+          </div>
+        )}
+        {/* <script>APIService(animalId, level);</script> */}
       </div>
+      <p>
+        <Link className="goback" to="/select">
+          <img src="/goback.png" />
+        </Link>
+      </p>
+      <p>
+        <Link className="onemore" onClick={refreshPage}>
+          <img src="/onemore.png" />
+        </Link>
+      </p>
     </Container>
   );
 }

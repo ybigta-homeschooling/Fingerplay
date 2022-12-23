@@ -10,6 +10,7 @@ from flask_cors import CORS
 from user_answer import action_answer
 from sep_song import song_by_song
 from Score import scoring_answer
+import datetime
 
 score=-1
 wrong_action=[]
@@ -45,6 +46,7 @@ def gen(song_num,level='easy'):
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
+    start_time = datetime.datetime.now()
     while cap.isOpened():
         img, labels = answer.answer(cap)
 
@@ -53,6 +55,9 @@ def gen(song_num,level='easy'):
         ret, frame = cv2.imencode('.jpg', img)
         # 설정한 종료 시간이 되면 while 문 탈출
         if time.time() > max_time :
+            label = labels
+            test = scoring_answer(actions, correct_actions, label, cut_time_list,level, correct_act_ko)
+            score, wrong_action = test.score()
             if cap.isOpened() :
                 cap.release()
                 cv2.destroyAllWindows()   
@@ -61,9 +66,9 @@ def gen(song_num,level='easy'):
             break
         yield (b'--frame\r\n'
                 b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n\r\n')
-    label = labels
-    test = scoring_answer(actions, correct_actions, label, cut_time_list,level, correct_act_ko)
-    score, wrong_action = test.score()
+    # label = labels
+    # test = scoring_answer(actions, correct_actions, label, cut_time_list,level, correct_act_ko)
+    # score, wrong_action = test.score()
     
 
 @app.route('/video_feed/<int:animalId>/<level>')
@@ -71,7 +76,7 @@ def video_feed(animalId, level):
     return Response(gen(str(animalId),level),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/video_feed/<int:animalId>/<level>/fin')
+@app.route('/video_feed/<int:animalId>/<level>/fin',methods=["GET","POST"], strict_slashes=False)
 def send_result(animalId, level):
     global score
     global wrong_action
