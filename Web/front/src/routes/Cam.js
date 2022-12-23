@@ -38,7 +38,7 @@ function Cam() {
     //   return () => {
     //     clearInterval(timer);
     //   };
-    setTimeout(getResult, 40000);
+    setTimeout(getResult, 48000);
   }, []);
 
   const AsyncImage = (props) => {

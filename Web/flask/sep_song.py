@@ -5,15 +5,15 @@ correct_actions_1 = ['nose','twinkle','smile','santa']
 correct_actions_4 = ['butterfly','flower', 'bird']
 correct_actions_2 = ['bear','fat', 'thin','cute']
 # action 한국어 버전
-correct_act_ko_3 = ['토끼','간다','산']
-correct_act_ko_1 = ['코','반짝','웃다','산타']
-correct_act_ko_4 = ['나비','꽃','참새']
-correct_act_ko_2 = ['곰','뚱뚱해','날씬해','귀여워']
+correct_act_ko_3 = ['토끼 ','간다 ','산']
+correct_act_ko_1 = ['코 ','반짝 ','웃다 ','산타']
+correct_act_ko_4 = ['나비 ','꽃 ','참새']
+correct_act_ko_2 = ['곰 ','뚱뚱해 ','날씬해 ','귀여워']
 # 동요별 cut_time
 cut_time_3 = [3,14,18,35]
 cut_time_1 = [2,5,17,29,37]
 cut_time_4 = [3,20,26,35]
-cut_time_2 = [1,11,15,20,31] 
+cut_time_2 = [1,11,16,20,31] 
 # 동요별 글자 색깔
 stroke_fill_3 = (81,164,75)
 stroke_fill_1 = (85,82,246)
@@ -26,7 +26,7 @@ def song_by_song(song_num,level='easy'):
     correct_actions = globals()['correct_actions_' + song_num_str]
     correct_act_ko = globals()['correct_act_ko_' + song_num_str]
     cut_time_original = globals()['cut_time_' + song_num_str]
-    plus_list = [6] * len(cut_time_original) # 카메라 delay 시간
+    plus_list = [10] * len(cut_time_original) # 카메라 delay 시간
     cut_time = [a+b for a,b in zip(cut_time_original,plus_list)] # action 실행 구간
     stroke_fill = globals()['stroke_fill_' + song_num_str]
 

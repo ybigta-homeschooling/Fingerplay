@@ -11,8 +11,8 @@ class scoring_answer():
     
     def score(self) : # 레벨에 따른 다른 score 산출 방식
         if len(self.labels) == 0 :
-            score =  0
-            wrong_action = self.correct_actions
+            score = '다시 도전해봐요!'
+            wrong_action = self.correct_act_ko
             return score, wrong_action
         wrong_action = []
         score = 0
@@ -100,4 +100,12 @@ class scoring_answer():
             # else : 
             #     continue
         score /= num_correct
+        if score == 0 :
+            score = '다시 도전해봐요!'
+        elif score < 0.4 :
+            score =  '아쉬워요ㅜ'
+        elif score < 0.8 :
+            score =  '잘했어요ㅎ'
+        else :
+            score =  '훌륭해요!'
         return score, wrong_action

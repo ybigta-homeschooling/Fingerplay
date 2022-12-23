@@ -41,6 +41,10 @@ class action_answer() :
         img_pil = Image.fromarray(img)
         draw = ImageDraw.Draw(img_pil)
         # 특정 시간에 행동 명령어 출력
+        if (time.time() <  self.cut_time_list[0]) & (time.time() >=  (self.cut_time_list[0]-2.5)):
+            do_action = '이제 시작 해봐요!' # 한국어 버전
+            draw.text((60, 30), f'{do_action.upper()}', font=font, fill=(255,255,255),stroke_width=3,stroke_fill=self.stroke_fill)
+            img = np.array(img_pil)
         for i in range(len(self.correct_actions)):   
             if (time.time() < min(self.cut_time_list[i+1],self.cut_time_list[i]+5)) & (time.time() >= self.cut_time_list[i])  :
                 do_action = '이제, ' + self.correct_act_ko[i] + ' 동작 해봐요!' # 한국어 버전
